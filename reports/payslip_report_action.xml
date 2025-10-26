@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_teacher_payslip" model="ir.actions.report">
+            <field name="name">Payslip</field>
+            <field name="model">school.payslip</field> <!-- The model the report is for -->
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">school_management.report_payslip_document</field> <!-- Technical template name -->
+            <field name="report_file">school_management.payslip_report</field> <!-- Used for filename -->
+            <field name="print_report_name">'Payslip - %s' % (object.name)</field> <!-- Dynamic filename -->
+            <field name="binding_model_id" ref="model_school_payslip"/> <!-- Links to Payslip form -->
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

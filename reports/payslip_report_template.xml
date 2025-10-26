@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payslip_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <div class="col-6">
+                                <h2>Payslip: <span t-field="doc.name"/></h2>
+                            </div>
+                            <div class="col-6 text-right">
+                                <p class="mb-0">
+                                    Period: <span t-field="doc.date_from"/> to <span t-field="doc.date_to"/>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row mt32 mb32">
+                            <div class="col-12">
+                                <h3>Employee Details</h3>
+                                <table class="table table-sm table-bordered">
+                                    <tr>
+                                        <td style="width: 25%;">Teacher Name:</td>
+                                        <td style="width: 25%;"><strong><span t-field="doc.teacher_id.name"/></strong></td>
+                                        <td style="width: 25%;">Teacher ID:</td>
+                                        <td style="width: 25%;"><span t-field="doc.teacher_id.teacher_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td><span t-field="doc.teacher_id.contact_email"/></td>
+                                        <td>Status:</td>
+                                        <td><strong><span t-field="doc.state"/></strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt32">
+                            <div class="col-6">
+                                <h3>Earnings</h3>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th>Description</th>
+                                            <th class="text-right">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Basic Salary</td>
+                                            <td class="text-right"><span t-field="doc.basic_salary" t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Allowances</td>
+                                            <td class="text-right"><span t-field="doc.total_allowances" t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <h3>Deductions</h3>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="table-danger">
+                                            <th>Description</th>
+                                            <th class="text-right">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Deductions would be listed here -->
+                                        <tr>
+                                            <td>(Example Deduction)</td>
+                                            <td class="text-right">0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Deductions</td>
+                                            <td class="text-right"><span t-field="doc.total_deductions" t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt32">
+                            <div class="col-12 text-right">
+                                <h3 class="mt-4">NET PAY: 
+                                    <span t-field="doc.net_salary" t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

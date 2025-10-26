@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top level menu -->
+        <menuitem
+            id="menu_school_root"
+            name="School Management"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_school_dashboard"
+            name="Dashboard"
+            parent="menu_school_root"
+            action="action_school_dashboard"
+            sequence="5"/>
+
+        <menuitem
+            id="menu_school_student"
+            name="Students"
+            parent="menu_school_root"
+            action="action_school_student"
+            sequence="10"/>
+
+        <!-- Existing Teachers menu moved under HR/Payroll for organizational clarity, or left as shortcut -->
+        <menuitem
+            id="menu_school_teacher"
+            name="Teachers"
+            parent="menu_school_root"
+            action="action_school_teacher"
+            sequence="20"/>
+
+        <menuitem
+            id="menu_school_class"
+            name="Classes"
+            parent="menu_school_root"
+            action="action_school_class"
+            sequence="30"/>
+
+        <menuitem
+            id="menu_school_timetable"
+            name="Timetable"
+            parent="menu_school_root"
+            action="action_school_timetable"
+            sequence="40"/>
+
+        <menuitem
+            id="menu_school_exam"
+            name="Examinations"
+            parent="menu_school_root"
+            action="action_school_exam"
+            sequence="50"/>
+
+        <menuitem
+            id="menu_school_fees_root"
+            name="Fees"
+            parent="menu_school_root"
+            sequence="60"/>
+
+        <menuitem
+            id="menu_school_fee_generation_wizard"
+            name="Generate Fees by Class"
+            parent="menu_school_fees_root"
+            action="action_fee_generation_wizard"
+            sequence="5"/>
+        <menuitem
+            id="menu_school_student_fee"
+            name="Student Fees"
+            parent="menu_school_fees_root"
+            action="action_school_student_fee"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_school_attendance_root"
+            name="Attendance"
+            parent="menu_school_root"
+            sequence="70"/>
+
+        <menuitem
+            id="menu_school_attendance_register_wizard"
+            name="Register Class Attendance"
+            parent="menu_school_attendance_root"
+            action="action_school_attendance_wizard"
+            sequence="5"/>
+
+        <menuitem
+            id="menu_school_attendance"
+            name="Attendance Records"
+            parent="menu_school_attendance_root"
+            action="action_school_attendance"
+            sequence="10"/>
+        
+        <!-- **** ADDED HR & PAYROLL SECTION (Sequence 80) **** -->
+        <menuitem
+            id="menu_school_hr_root"
+            name="HR &amp; Payroll"
+            parent="menu_school_root"
+            sequence="80"/>
+
+        <menuitem
+            id="menu_school_payslip"
+            name="Payslips"
+            parent="menu_school_hr_root"
+            action="action_school_payslip"
+            sequence="10"/>
+
+        <!-- Adding Teachers shortcut under HR/Payroll for quick access -->
+        <menuitem
+            id="menu_school_hr_teachers"
+            name="Teachers"
+            parent="menu_school_hr_root"
+            action="action_school_teacher"
+            sequence="20"/>
+        <!-- ************************************************* -->
+
+        <menuitem
+            id="menu_school_configuration"
+            name="Configuration"
+            parent="menu_school_root"
+            sequence="100"/>
+
+        <menuitem
+            id="menu_school_subject"
+            name="Subjects"
+            parent="menu_school_configuration"
+            action="action_school_subject"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_school_course"
+            name="Courses"
+            parent="menu_school_configuration"
+            action="action_school_course"
+            sequence="20"/>
+
+        <menuitem
+            id="menu_school_fee_type"
+            name="Fee Types"
+            parent="menu_school_configuration"
+            action="action_school_fee_type"
+            sequence="30"/>
+
+    </data>
+</odoo>

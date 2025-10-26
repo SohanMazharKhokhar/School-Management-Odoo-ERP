@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_school_exam_tree" model="ir.ui.view">
+            <field name="name">school.exam.tree</field>
+            <field name="model">school.exam</field>
+            <field name="arch" type="xml">
+                <tree string="Exams" decoration-muted="not active">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="subject_id"/>
+                    <field name="class_id"/>
+                    <field name="exam_date"/>
+                    <field name="total_marks"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_school_exam_form" model="ir.ui.view">
+            <field name="name">school.exam.form</field>
+            <field name="model">school.exam</field>
+            <field name="arch" type="xml">
+                <form string="Exam">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="[('active', '=', True)]"/>
+                        <field name="active" invisible="1"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g., Midterm Exam"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="course_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="subject_id"/>
+                                <field name="class_id"/>
+                            </group>
+                            <group>
+                                <field name="exam_date"/>
+                                <field name="total_marks"/>
+                                <field name="teacher_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Results" name="exam_results">
+                                <field name="result_ids" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="student_id" required="1"/>
+                                        <field name="marks_obtained" required="1"/>
+                                        <field name="total_marks"/>
+                                        <field name="percentage"/>
+                                        <field name="grade"/>
+                                        <field name="remarks"/>
+                                        </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_school_exam_search" model="ir.ui.view">
+             <field name="name">school.exam.search</field>
+             <field name="model">school.exam</field>
+             <field name="arch" type="xml">
+                 <search string="Search Exams">
+                     <field name="name"/>
+                     <field name="course_id"/>
+                     <field name="subject_id"/>
+                     <field name="class_id"/>
+                     <field name="teacher_id"/>
+                     <field name="exam_date"/>
+                     <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                     <group expand="0" string="Group By">
+                        <filter string="Course" name="group_by_course" context="{'group_by': 'course_id'}"/>
+                        <filter string="Subject" name="group_by_subject" context="{'group_by': 'subject_id'}"/>
+                        <filter string="Class" name="group_by_class" context="{'group_by': 'class_id'}"/>
+                        <filter string="Teacher" name="group_by_teacher" context="{'group_by': 'teacher_id'}"/>
+                        <filter string="Exam Date" name="group_by_date" context="{'group_by': 'exam_date'}"/>
+                     </group>
+                 </search>
+             </field>
+         </record>
+
+        <record id="action_school_exam" model="ir.actions.act_window">
+            <field name="name">Examinations</field>
+            <field name="res_model">school.exam</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_school_exam_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocent_smiling_face">
+                    Schedule the first examination!
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

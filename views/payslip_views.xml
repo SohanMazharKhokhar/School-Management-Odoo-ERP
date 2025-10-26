@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Payslip Tree/List View -->
+        <record id="view_school_payslip_tree" model="ir.ui.view">
+            <field name="name">school.payslip.tree</field>
+            <field name="model">school.payslip</field>
+            <field name="arch" type="xml">
+                <tree string="Payslips" decoration-info="state=='draft'" decoration-success="state=='paid'" decoration-muted="state=='cancelled'">
+                    <field name="name"/>
+                    <field name="teacher_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="net_salary" widget="monetary"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Payslip Form View -->
+        <record id="view_school_payslip_form" model="ir.ui.view">
+            <field name="name">school.payslip.form</field>
+            <field name="model">school.payslip</field>
+            <field name="arch" type="xml">
+                <form string="Payslip">
+                    <header>
+                        <!-- **** STATUS TRANSITION BUTTONS (ALWAYS VISIBLE) **** -->
+                        <!-- NOTE: If this throws an AttributeError, the Python code (action_confirm, etc.) has not been registered. -->
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="action_paid" string="Mark as Paid" type="object" class="oe_highlight"/>
+                        <button name="action_cancel" string="Cancel Payslip" type="object"/>
+                        <button name="action_draft" string="Set to Draft" type="object"/>
+                        <!-- ************************************************** -->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,paid"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="teacher_id"/>
+                            </group>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Salary Details" name="salary_details">
+                                <group>
+                                    <group>
+                                        <field name="basic_salary"/>
+                                    </group>
+                                    <group>
+                                        <field name="total_allowances" readonly="1"/>
+                                        <field name="total_deductions" readonly="1"/>
+                                    </group>
+                                </group>
+                                <separator/>
+                                <field name="net_salary" readonly="1" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action to open Payslip Views (Ensures menu appears) -->
+        <record id="action_school_payslip" model="ir.actions.act_window">
+            <field name="name">Payslips</field>
+            <field name="res_model">school.payslip</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocent_smiling_face">
+                    Create the first teacher payslip!
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

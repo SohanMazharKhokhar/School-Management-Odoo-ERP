@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_school_student_tree" model="ir.ui.view">
+            <field name="name">school.student.tree</field>
+            <field name="model">school.student</field>
+            <field name="arch" type="xml">
+                <tree string="Students">
+                    <field name="roll_number"/>
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                    <field name="class_id"/>
+                    <field name="contact_phone"/>
+                    <field name="parent_mobile"/> </tree>
+            </field>
+        </record>
+
+        <record id="view_school_student_form" model="ir.ui.view">
+            <field name="name">school.student.form</field>
+            <field name="model">school.student</field>
+            <field name="arch" type="xml">
+                <form string="Student">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="[('active', '=', True)]"/>
+                        <field name="active" invisible="1"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Student's Name"/></h1>
+                            <field name="roll_number" placeholder="Roll Number"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_of_birth"/>
+                                <field name="age"/>
+                                <field name="gender"/>
+                                <field name="total_absent_days"/>
+                                <field name="attendance_percentage" widget="percentage"/>
+                            </group>
+                            <group>
+                                <field name="contact_phone"/>
+                                <field name="contact_email"/>
+                                <field name="parent_mobile"/> <field name="partner_id"/>
+                                <field name="enrollment_date"/>
+                                <field name="class_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_school_student_search" model="ir.ui.view">
+            <field name="name">school.student.search</field>
+            <field name="model">school.student</field>
+            <field name="arch" type="xml">
+                <search string="Search Students">
+                    <field name="name"/>
+                    <field name="roll_number"/>
+                    <field name="contact_email"/>
+                    <field name="class_id"/>
+                    <field name="parent_mobile"/> <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <filter string="Class" name="filter_by_class" context="{'group_by': 'class_id'}"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                        <filter string="Class" name="group_by_class" context="{'group_by': 'class_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_school_student" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="res_model">school.student</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_school_student_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocent_smiling_face">
+                    Create the first student record!
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
